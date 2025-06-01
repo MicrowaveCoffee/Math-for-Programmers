@@ -1,5 +1,6 @@
 from vector_drawing import *
 from math import sqrt
+from random import uniform
 
 # ============================================================================
 # UTILITY FUNCTIONS
@@ -19,6 +20,22 @@ def translate(translation, vectors):  # Fixed typo: was "tranlate"
     """Translate a list of vectors by a given translation vector."""
     return [add(translation, vector) for vector in vectors]  # Using add() function
 
+
+def scale(scalar,v):
+    return (scalar * v[0],scalar * v[1])
+
+def uni_scale(u,v):
+    def r_scale():
+        r = uniform(-3,3)
+        return r
+    def s_scale():
+        s = uniform(-1,1)
+        return s
+    
+    posibilities = [add(scale(r_scale(),u),scale(s_scale(),v))for i in range(0,500)]
+    draw (
+        Points(*posibilities)
+    )
 # ============================================================================
 # VECTOR DATA
 # ============================================================================
@@ -89,3 +106,5 @@ if __name__ == "__main__":
     
     # Draw 100 dinos
     hundred_dinos()
+
+    uni_scale((-1,1),(1,1))
