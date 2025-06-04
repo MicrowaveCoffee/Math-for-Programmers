@@ -1,5 +1,5 @@
 from vector_drawing import *
-from math import sqrt
+from math import sqrt, tan, pi, sin , cos, asin, acos, atan2
 from random import uniform
 
 # ============================================================================
@@ -16,10 +16,21 @@ def add(*vectors):
     y_sum = sum(v[1] for v in vectors)
     return (x_sum, y_sum)
 
-def translate(translation, vectors):  # Fixed typo: was "tranlate"
-    """Translate a list of vectors by a given translation vector."""
-    return [add(translation, vector) for vector in vectors]  # Using add() function
+def subtract(v1,v2):
+    return (v1[0] - v2[0], v1[1] - v2[1])
 
+
+def translate(translation, vectors):
+    return [add(translation, v) for v in vectors]
+
+
+def distance(v1,v2):
+    return length(subtract(v1,v2))
+
+def perimeter(vectors):
+    distances = [distance(vectors[i], vectors[(i+1)%len(vectors)])
+                 for i in range(0,len(vectors))]
+    return sum(distances)
 
 def scale(scalar,v):
     return (scalar * v[0],scalar * v[1])
@@ -36,6 +47,24 @@ def uni_scale(u,v):
     draw (
         Points(*posibilities)
     )
+
+def to_cartesian(polar_vector):
+    length, angle = polar_vector[0], polar_vector[1]
+    return (length*cos(angle), length*sin(angle))
+
+
+def to_polar(vector):
+    x , y = vector[0], vector[1]
+    angle = atan2(y,x)
+    return(length(vector),angle)
+
+def rotate(angle, vectors):
+    polars = [to polar(v) for v in vectors]
+    return [to_cartesian((l, a+angle)) for l,a in polars]
+
+
+
+
 # ============================================================================
 # VECTOR DATA
 # ============================================================================
@@ -98,13 +127,71 @@ def hundred_dinos():
 
 if __name__ == "__main__":
     # Test the translate function
-    print("Testing translate function:")
-    print(translate((11, 0), dino_vectors))
+    # print("Testing translate function:")
+    # print(translate((11, 0), dino_vectors))
     
     # Draw single dino comparison
-    draw_single_dino()
+    # draw_single_dino()
     
     # Draw 100 dinos
-    hundred_dinos()
+    # hundred_dinos()
 
-    uni_scale((-1,1),(1,1))
+    # uni_scale((-1,1),(1,1))
+
+    # print(perimeter(dino_vectors))
+    # print(length((-1.34,2.68)))
+
+    # angle = 37*pi/180
+    # print(to_cartesian((5,angle)))
+
+    # print(tan(pi/4))
+    # print(to_cartesian((15,37)))
+
+    # print(length((-1/2,sqrt(3)/2)))
+
+    # print(length((sin(50*pi/180), cos(50*pi/180))), tan(50*pi/180))
+
+    # print(tan(2.035))
+
+    # print(cos(10*pi/6 * pi/180))
+    # print(cos(10*pi/6))
+
+    # print(sin(10*pi/6 * pi/180))
+    # print(sin(10*pi/6))
+
+    # polar_vectors = [(cos(5*x*pi/500.0), 2*pi*x/1000.0) for x in range(0,1000)]
+    # coords = [to_cartesian(p) for p in polar_vectors]
+    # draw(
+    #     Polygon(*coords,color=green)
+    # )
+
+    # polar_coords = [(cos(x*pi/100.0), 2*pi*x/1000.0) for x in range(0,1000)]
+    # vectors = [to_cartesian(p) for p in polar_coords]
+    # draw(Polygon(*vectors, color=green))
+
+    # print(sin(1))
+
+
+    # print(asin(3/sqrt(13)))
+    # print(atan2(3,-2)* 57.29)
+
+    # print(to_polar((1,1)))
+    # print(116.57/57.29)
+
+    # rotation_angle = pi/4
+    # dino_to_polar = [to_polar(p) for p in dino_vectors]
+    # dino_polar_rotation = [(l,angle + rotation_angle) for l,angle in dino_to_polar]
+    # back_to_cartesian = [to_cartesian(p) for p in dino_polar_rotation]
+    # draw(
+    #     Polygon(*dino_vectors, color = red),
+    #     Polygon(*back_to_cartesian, color = blue)
+    # )
+
+    rotation_angle = pi/4
+    dino_polar = [to_polar(v) for v in dino_vectors]
+    dino_rotated_polar = [(l,angle + rotation_angle) for l,angle in dino_polar]
+    dino_rotated = [to_cartesian(p) for p in dino_rotated_polar]
+    draw(
+        Polygon(*dino_vectors, color=gray),
+        Polygon(*dino_rotated, color=red)
+    )
