@@ -59,11 +59,12 @@ def to_polar(vector):
     return(length(vector),angle)
 
 def rotate(angle, vectors):
-    polars = [to polar(v) for v in vectors]
+    polars = [to_polar(v) for v in vectors]
     return [to_cartesian((l, a+angle)) for l,a in polars]
 
 
-
+def regular_polygon(n):
+    return [to_cartesian((1,2*pi*k/n)) for k in range(0,n)]
 
 # ============================================================================
 # VECTOR DATA
@@ -187,11 +188,15 @@ if __name__ == "__main__":
     #     Polygon(*back_to_cartesian, color = blue)
     # )
 
-    rotation_angle = pi/4
-    dino_polar = [to_polar(v) for v in dino_vectors]
-    dino_rotated_polar = [(l,angle + rotation_angle) for l,angle in dino_polar]
-    dino_rotated = [to_cartesian(p) for p in dino_rotated_polar]
-    draw(
-        Polygon(*dino_vectors, color=gray),
-        Polygon(*dino_rotated, color=red)
+    # rotation_angle = pi/4
+    # dino_polar = [to_polar(v) for v in dino_vectors]
+    # dino_rotated_polar = [(l,angle + rotation_angle) for l,angle in dino_polar]
+    # dino_rotated = [to_cartesian(p) for p in dino_rotated_polar]
+    # draw(
+    #     Polygon(*dino_vectors, color=gray),
+    #     Polygon(*dino_rotated, color=red)
+    # )
+    poly_test = regular_polygon(8)
+    draw (
+        Polygon(*poly_test, color = blue)
     )
