@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D, proj3d
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-from math import sqrt
+from math import sqrt, sin, cos, pi
 
 
 #Utility Functions ------------------------------------
@@ -36,13 +36,49 @@ def add(*vectors):
 #     *[Segment3D(*edge) for edge in edges]
 # )
 
-vectors = ((4,0,3),(-1,0,1))
+vector1 = (4,0,3)
+vector2 = (-1,0,1)
 # Exercise 3.26 ----------------
 draw3d(
-    Points3D(*vectors),
-    Points3D(add(*vectors)),
-    Arrow3D(*vectors)
+    Arrow3D(vector1, color = blue),
+    Arrow3D(vector2, color= blue),
+    Arrow3D(add(vector1,vector2), vector1),
+    Arrow3D(add(vector1,vector2), vector2),
+    # Arrow3D(vector2, vector1),
+    Arrow3D(add(vector1,vector2), color=green)
 )
 
 
-    
+# Exercise 3.5 Mini Project
+
+# vs = [(sin(pi*t/6),cos(pi*t/6),1.0/3)for t in range(0,24)]
+
+# total_sum = (0,0,0)
+# arrows = []
+# for v in vs:
+#     next_sum = add(total_sum,v)
+#     arrows.append(Arrow3D(next_sum, total_sum))
+#     total_sum = next_sum
+
+
+# draw3d(
+#     *arrows
+# )
+
+
+vectors = []
+for i in range(36):
+    angle = pi * i/9
+    radius = 0.5 + 0.3 * sin(pi* i/18)
+    x = radius * cos(angle)
+    y = radius * sin(angle)
+    z = 0.1 * i
+    vectors.append((x,y,z))
+
+position = (0,0,0)
+path_arrows = []
+for v in vectors:
+    new_position = add(position,v)
+    path_arrows.append(Arrow3D(position, new_position))
+    position = new_position  
+draw3d(*path_arrows)
