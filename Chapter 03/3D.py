@@ -1,3 +1,4 @@
+import math
 import matplotlib
 from draw3d import *
 from draw2d import *
@@ -9,12 +10,18 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D, proj3d
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-from math import sqrt, sin, cos, pi
+from math import sqrt, sin, cos, pi, atan2, acos
 
 
 #Utility Functions ------------------------------------
 def add(*vectors):
     return tuple(map(sum,zip(*vectors)))
+
+def length(v):
+    return sqrt(sum([coord ** 2 for coord in v]))
+
+def scale(s,vector):
+    return tuple(s * v for v in vector)
 
 
 # vector = (-1,-2,2)
@@ -36,17 +43,17 @@ def add(*vectors):
 #     *[Segment3D(*edge) for edge in edges]
 # )
 
-vector1 = (4,0,3)
-vector2 = (-1,0,1)
-# Exercise 3.26 ----------------
-draw3d(
-    Arrow3D(vector1, color = blue),
-    Arrow3D(vector2, color= blue),
-    Arrow3D(add(vector1,vector2), vector1),
-    Arrow3D(add(vector1,vector2), vector2),
-    # Arrow3D(vector2, vector1),
-    Arrow3D(add(vector1,vector2), color=green)
-)
+# vector1 = (4,0,3)
+# vector2 = (-1,0,1)
+# # Exercise 3.26 ----------------
+# draw3d(
+#     Arrow3D(vector1, color = blue),
+#     Arrow3D(vector2, color= blue),
+#     Arrow3D(add(vector1,vector2), vector1),
+#     Arrow3D(add(vector1,vector2), vector2),
+#     # Arrow3D(vector2, vector1),
+#     Arrow3D(add(vector1,vector2), color=green)
+# )
 
 
 # Exercise 3.5 Mini Project
@@ -66,19 +73,44 @@ draw3d(
 # )
 
 
-vectors = []
-for i in range(36):
-    angle = pi * i/9
-    radius = 0.5 + 0.3 * sin(pi* i/18)
-    x = radius * cos(angle)
-    y = radius * sin(angle)
-    z = 0.1 * i
-    vectors.append((x,y,z))
+# vectors = []
+# for i in range(36):
+#     angle = pi * i/9
+#     radius = 0.5 + 0.3 * sin(pi* i/18)
+#     x = radius * cos(angle)
+#     y = radius * sin(angle)
+#     z = 0.1 * i
+#     vectors.append((x,y,z))
 
-position = (0,0,0)
-path_arrows = []
-for v in vectors:
-    new_position = add(position,v)
-    path_arrows.append(Arrow3D(position, new_position))
-    position = new_position  
-draw3d(*path_arrows)
+# position = (0,0,0)
+# path_arrows = []
+# for v in vectors:
+#     new_position = add(position,v)
+#     path_arrows.append(Arrow3D(position, new_position))
+#     position = new_position  
+# draw3d(*path_arrows)
+
+
+# def scale(scaler,vector):
+#     return tuple(scaler * coord for coord in vector)
+
+#-----Exercise 3.9 
+# def vectors_with_whole_number_length(max_coord = 100):
+#     for x in range(1,max_coord):
+#         for y in range(1, x+1):
+#             for z in range(1,y+1):
+#                 if length((x,y,z)).is_integer():
+#                     yield (x,y,z)
+
+# for vector in vectors_with_whole_number_length(20):  # Using smaller max for testing
+#     print(vector)
+
+
+#Exercise 3.10
+cup = length((-1,-1,2))
+s = 1/length((-1,-1,2))
+vector_unit = scale(s,(-1,-1,2))
+print(length(vector_unit))
+
+
+    
