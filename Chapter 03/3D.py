@@ -11,6 +11,7 @@ from mpl_toolkits.mplot3d import Axes3D, proj3d
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 from math import sqrt, sin, cos, pi, atan2, acos
+from random import random
 
 
 #Utility Functions ------------------------------------
@@ -22,6 +23,21 @@ def length(v):
 
 def scale(s,vector):
     return tuple(s * v for v in vector)
+
+def dot(u,v):
+    return sum([coord_1*coord_2 for coord_1,coord_2 in zip(u,v)])
+
+
+def angle_between(v1,v2):
+    return acos (
+        dot(v1,v2) /
+        (length(v1) * length(v2))
+    )
+
+
+def to_cartesian(polar_vector):
+    distance, angle = polar_vector[0],polar_vector[1]
+    return (distance*cos(angle),distance*sin(angle))
 
 
 # vector = (-1,-2,2)
@@ -106,11 +122,51 @@ def scale(s,vector):
 #     print(vector)
 
 
-#Exercise 3.10
-cup = length((-1,-1,2))
-s = 1/length((-1,-1,2))
-vector_unit = scale(s,(-1,-1,2))
-print(length(vector_unit))
+#Exercise 3.10 Normalizing a vector
+# box = length((-1,-1,2))
+# s = scale(1/box,(-1,-1,2))
+# print(length(s))
+
+
+# print(dot((3,0,3),(1,2,-1)))
+
+# print(angle_between((1,2,2),(2,2,1)))
+
+# #Exercise 3.11
+
+# print(dot((-4,1),(1,2)))
+# print(dot((-4,1),(4,2)))
+# print(dot((1,2),(4,2)))
+
+# Exercise 3.12
+# print(dot((-1,-1,1),(1,2,1)))
+
+
+#Exercise 3.13
+
+# def proof(real_num,v1,v2):
+#     print(dot((scale(real_num,v1)),v2))
+#     print(dot(v1,(scale(real_num,v2))))
+#     print(real_num * dot(v1,v2))
+
+# proof(2,(1,1,1),(2,2,2))
+
+#Exercise 3.14
+def find_similar_lengths(l):
+    return to_cartesian((l,2*pi*random()))
+
+pairs = [(find_similar_lengths(3),find_similar_lengths(7))
+            for i in range(0,3)]
+
+for u,v in pairs:
+    print("u = %s, v = %s" % (u,v))
+    print("length of u: %f, length of v: %f, dot product: %f"
+            % (length(u),length(v),dot(u,v)))
+
+
+
+
+
 
 
     
