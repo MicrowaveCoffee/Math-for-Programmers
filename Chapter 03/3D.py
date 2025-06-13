@@ -18,6 +18,9 @@ from random import random
 def add(*vectors):
     return tuple(map(sum,zip(*vectors)))
 
+def subtract(v1,v2):
+    return tuple(v1-v2 for (v1,v2) in zip(v1,v2))
+
 def length(v):
     return sqrt(sum([coord ** 2 for coord in v]))
 
@@ -151,17 +154,38 @@ def to_cartesian(polar_vector):
 
 # proof(2,(1,1,1),(2,2,2))
 
-#Exercise 3.14
-def find_similar_lengths(l):
-    return to_cartesian((l,2*pi*random()))
+#Exercise 3.15
+# def find_similar_lengths(l):
+#     return to_cartesian((l,2*pi*random()))
 
-pairs = [(find_similar_lengths(3),find_similar_lengths(7))
-            for i in range(0,3)]
+# pairs = [(find_similar_lengths(3),find_similar_lengths(7))
+#             for i in range(0,3)]
 
-for u,v in pairs:
-    print("u = %s, v = %s" % (u,v))
-    print("length of u: %f, length of v: %f, dot product: %f"
-            % (length(u),length(v),dot(u,v)))
+# for u,v in pairs:
+#     print("u = %s, v = %s" % (u,v))
+#     print("length of u: %f, length of v: %f, dot product: %f"
+#             % (length(u),length(v),dot(u,v)))
+
+# #Exercise 3.16
+# print(dot((3.61,0),(1.44,0)))
+
+
+# #Exercise 3.17
+
+# print(atan2(3,4)-atan2(4,3))
+# print(dot((1,1,1),(-1,-1,1)))
+
+
+# Exercise 3.21
+def cross_product(u,v):
+    ux,uy,uz = u
+    vx,vy,vz = v
+
+    return (ux * vy - uy * vx, ux * vz - uz * vx, uy * vz - uz * vy)
+
+
+
+print(cross_product((1,0,1),(-1,0,0)))
 
 
 
