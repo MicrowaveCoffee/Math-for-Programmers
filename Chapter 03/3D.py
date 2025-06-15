@@ -30,6 +30,12 @@ def scale(s,vector):
 def dot(u,v):
     return sum([coord_1*coord_2 for coord_1,coord_2 in zip(u,v)])
 
+def cross_product(u,v):
+    ux,uy,uz = u
+    vx,vy,vz = v
+
+    return (uy*vz - uz*vy, uz*vx - ux*vz, ux*vy - uy*vx)
+
 
 def angle_between(v1,v2):
     return acos (
@@ -177,15 +183,62 @@ def to_cartesian(polar_vector):
 
 
 # Exercise 3.21
-def cross_product(u,v):
-    ux,uy,uz = u
-    vx,vy,vz = v
+# def cross_product(u,v):
+#     ux,uy,uz = u
+#     vx,vy,vz = v
 
-    return (ux * vy - uy * vx, ux * vz - uz * vx, uy * vz - uz * vy)
+#     return (uy*vz - uz*vy, uz*vx - ux*vz, ux*vy - uy*vx)
 
 
 
-print(cross_product((1,0,1),(-1,0,0)))
+
+# print(cross_product((1,-2,1),(-6,12,-6)))
+
+# draw3d (
+#     Arrow3D((0,0,3), color=red),
+#     Arrow3D((3,0,0), color=red),
+#     Arrow3D((1,1,0),color=blue),
+#     Arrow3D((-2,1,0), color=blue)
+# )
+
+# Exercise 3.24
+# print(cross_product((1,0,1),(-1,0,0)))
+
+#Exercise 3.27
+points = [(1,0,0),(0,1,0),(0,0,1),
+          (-1,0,0),(0,-1,0),(0,0,-1)]
+draw3d(
+    Points3D(*points),
+    Segment3D((1,0,0),(0,0,1)),
+    Segment3D((0,1,0),(0,0,1)),
+    Segment3D((0,0,1),(0,0,1)),
+    Segment3D((-1,0,0),(0,0,1)),
+    Segment3D((0,-1,0),(0,0,1)),
+    Segment3D((0,0,-1),(0,0,1)),
+    Segment3D((1,0,0),(0,0,-1)),
+    Segment3D((0,0,1),(0,0,-1)),
+    # Segment3D((-1,0,0),(0,0,-1)),
+    Segment3D((0,-1,0),(0,0,-1)),
+    Segment3D((0,0,-1),(0,0,-1)),
+    Segment3D((0,1,0),(1,0,0)),
+    Segment3D((-1,0,0),(0,-1,0)),
+    Segment3D((0,-1,0),(1,0,0))
+)
+# octahedron = [
+#     [(1,0,0), (0,1,0), (0,0,1)],
+#     [(1,0,0), (0,0,-1), (0,1,0)],
+#     [(1,0,0), (0,0,1), (0,-1,0)],
+#     [(1,0,0), (0,-1,0), (0,0,-1)],
+#     [(-1,0,0), (0,0,1), (0,1,0)],
+#     [(-1,0,0), (0,1,0), (0,0,-1)],
+#     [(-1,0,0), (0,-1,0), (0,0,1)],
+#     [(-1,0,0), (0,0,-1), (0,-1,0)],
+# ]
+
+# draw3d(
+#     Points3D(*octahedron)
+# )
+
 
 
 
