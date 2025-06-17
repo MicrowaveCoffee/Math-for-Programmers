@@ -204,43 +204,33 @@ def to_cartesian(polar_vector):
 # Exercise 3.24
 # print(cross_product((1,0,1),(-1,0,0)))
 
+# Exercise 3.25
+# print(cross_product((0,0,1),(1,1,1)))
+# print(cross_product((0,0,1),(-1,-1,-1)))
+# print(cross_product((0,0,1),(1,0,1)))
+# print(cross_product((0,0,1),(1,0,0)))
+
+# Exercise 3.26
+# print(dot(cross_product((1,1,0),(0,1,0)),(1,1,0)))
+# print(dot(cross_product((1,1,0),(0,1,0)),(0,1,0)))
+
 #Exercise 3.27
-points = [(1,0,0),(0,1,0),(0,0,1),
-          (-1,0,0),(0,-1,0),(0,0,-1)]
-draw3d(
-    Points3D(*points),
-    Segment3D((1,0,0),(0,0,1)),
-    Segment3D((0,1,0),(0,0,1)),
-    Segment3D((0,0,1),(0,0,1)),
-    Segment3D((-1,0,0),(0,0,1)),
-    Segment3D((0,-1,0),(0,0,1)),
-    Segment3D((0,0,-1),(0,0,1)),
-    Segment3D((1,0,0),(0,0,-1)),
-    Segment3D((0,0,1),(0,0,-1)),
-    # Segment3D((-1,0,0),(0,0,-1)),
-    Segment3D((0,-1,0),(0,0,-1)),
-    Segment3D((0,0,-1),(0,0,-1)),
-    Segment3D((0,1,0),(1,0,0)),
-    Segment3D((-1,0,0),(0,-1,0)),
-    Segment3D((0,-1,0),(1,0,0))
-)
-# octahedron = [
-#     [(1,0,0), (0,1,0), (0,0,1)],
-#     [(1,0,0), (0,0,-1), (0,1,0)],
-#     [(1,0,0), (0,0,1), (0,-1,0)],
-#     [(1,0,0), (0,-1,0), (0,0,-1)],
-#     [(-1,0,0), (0,0,1), (0,1,0)],
-#     [(-1,0,0), (0,1,0), (0,0,-1)],
-#     [(-1,0,0), (0,-1,0), (0,0,1)],
-#     [(-1,0,0), (0,0,-1), (0,-1,0)],
-# ]
+top = (0,0,1)
+bottom = (0,0,-1)
+xy_plane = [(1,0,0),(0,1,0),(-1,0,0),(0,-1,0)]
+edges = [Segment3D(top,p) for p in xy_plane] +\
+        [Segment3D(bottom, p) for p in xy_plane] +\
+        [Segment3D(xy_plane[i], xy_plane[(i+1)%4]) for i in range(0,4)]
+        
 
-# draw3d(
-#     Points3D(*octahedron)
-# )
+draw3d(*edges)
 
 
+# def vertices(faces):
+#     return list(set([vertex for face in faces for vertex in face]))
 
+
+# print(vertices(8))
 
 
 
