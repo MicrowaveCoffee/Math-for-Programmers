@@ -69,3 +69,7 @@ def unit(v):
 def linear_combination(scalars,*vectors):
     scaled = [scale(s,v) for s,v in zip(scalars,vectors)]
     return add(*scaled)
+
+
+
+
