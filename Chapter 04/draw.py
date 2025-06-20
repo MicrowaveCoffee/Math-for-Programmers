@@ -1,6 +1,6 @@
 from teapot import load_triangles
 from draw_model import draw_model
-
+from math import *
 from vectors import *
 
 def scale2(v):
@@ -44,6 +44,35 @@ def rotate_z(angle,vector):
     new_x,new_y = rotate2d(angle,(x,y))
     return new_x,new_y,z
 
+
+def rotate_z_by(angle):
+    def new_function(v):
+        return rotate_z(angle,v)
+    return new_function
+
+
+def rotate_y(angle,vector):
+    x,y,z = vector
+    new_x,new_z = rotate2d(angle,(x,z))
+    return new_x,y,new_z
+
+def rotate_y_by(angle):
+    def new_function(v):
+        return rotate_y(angle,v)
+    return new_function
+
+
+def rotate_x(angle,vector):
+    x,y,z = vector
+    new_y,new_z = rotate2d(angle,(y,z))
+    return x,new_y,new_z
+
+
+def rotate_x_by(angle):
+    def new_function(v):
+        return rotate_x(angle,v)
+    return new_function
+
 scale2_then_translate_left = compose(tranlate_left,scale2)
 
 regular_triangles = load_triangles()
@@ -54,4 +83,5 @@ scaled_triangles = [
 
 
 
-draw_model(polygon_map(translate_by((1,0,0)), load_triangles()))
+# draw_model(polygon_map(translate_by((1,0,0)), load_triangles()))
+draw_model(polygon_map(rotate_x_by(pi/2), load_triangles()))

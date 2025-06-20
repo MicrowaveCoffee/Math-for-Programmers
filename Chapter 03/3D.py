@@ -215,15 +215,24 @@ def to_cartesian(polar_vector):
 # print(dot(cross_product((1,1,0),(0,1,0)),(0,1,0)))
 
 #Exercise 3.27
-top = (0,0,1)
-bottom = (0,0,-1)
-xy_plane = [(1,0,0),(0,1,0),(-1,0,0),(0,-1,0)]
-edges = [Segment3D(top,p) for p in xy_plane] +\
-        [Segment3D(bottom, p) for p in xy_plane] +\
-        [Segment3D(xy_plane[i], xy_plane[(i+1)%4]) for i in range(0,4)]
+# top = (0,0,1)
+# bottom = (0,0,-1)
+# xy_plane = [(1,0,0),(0,1,0),(-1,0,0),(0,-1,0)]
+# edges = [Segment3D(top,p) for p in xy_plane] +\
+#         [Segment3D(bottom, p) for p in xy_plane] +\
+#         [Segment3D(xy_plane[i], xy_plane[(i+1)%4]) for i in range(0,4)]
         
 
-draw3d(*edges)
+# draw3d(*edges)
+
+# Exercise 3.28
+point = [(0,1,0),(1,0,0),(0,0,1)]
+
+draw3d(
+    Segment3D(point[0],point[1]),
+    Segment3D(point[1],point[2]),
+    Segment3D(point[2],point[0])
+)
 
 
 # def vertices(faces):
