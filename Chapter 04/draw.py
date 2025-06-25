@@ -73,6 +73,19 @@ def rotate_x_by(angle):
         return rotate_x(angle,v)
     return new_function
 
+
+def stretch_x(vector):
+    x,y,z = vector
+    return (4.*x,y,z)
+
+def stretch_y(vector):
+    x,y,z = vector
+    return(x,2.*y,z)
+
+def stretch_z(vector):
+    x,y,z = vector
+    return(x,y,4.*z)
+
 scale2_then_translate_left = compose(tranlate_left,scale2)
 
 regular_triangles = load_triangles()
@@ -84,4 +97,5 @@ scaled_triangles = [
 
 
 # draw_model(polygon_map(translate_by((1,0,0)), load_triangles()))
-draw_model(polygon_map(rotate_x_by(pi/2), load_triangles()))
+# draw_model(polygon_map(rotate_x_by(pi/2), load_triangles()))
+draw_model(polygon_map(stretch_z,load_triangles()))
