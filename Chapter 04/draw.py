@@ -86,6 +86,18 @@ def stretch_z(vector):
     x,y,z = vector
     return(x,y,4.*z)
 
+def cube_stretch_y(vector):
+    x,y,z = vector
+    return(x,y**3,z)
+
+def cube_stretch_x(vector):
+    x,y,z = vector
+    return(x**3,y,z)
+
+def cube_stretch_z(vector):
+    x,y,z = vector
+    return(x,y,z**3)
+
 scale2_then_translate_left = compose(tranlate_left,scale2)
 
 regular_triangles = load_triangles()
@@ -98,4 +110,4 @@ scaled_triangles = [
 
 # draw_model(polygon_map(translate_by((1,0,0)), load_triangles()))
 # draw_model(polygon_map(rotate_x_by(pi/2), load_triangles()))
-draw_model(polygon_map(stretch_z,load_triangles()))
+draw_model(polygon_map(cube_stretch_z,load_triangles()))
