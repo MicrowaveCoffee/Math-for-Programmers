@@ -9,11 +9,19 @@ def scale2(v):
 def tranlate_left(v):
     return add((-1,0,0),v)
 
+# compose with only two functions
+# def compose(f1,f2):
+#     def new_function(input):
+#         return f1(f2(input))
+#     return new_function
 
-
-def compose(f1,f2):
+#Exercise 4.6 composes a lot of functions
+def compose(*args):
     def new_function(input):
-        return f1(f2(input))
+        state = input
+        for f in reversed(args):
+            state = f(state)
+        return state
     return new_function
 
 def polygon_map(transformation,polygons):
@@ -21,8 +29,6 @@ def polygon_map(transformation,polygons):
         [transformation(vertex) for vertex in triangle]
         for triangle in polygons
     ]
-
-
 
 def scale_by(scalar):
     def new_function(v):
@@ -141,4 +147,23 @@ scaled_triangles = [
 
 # draw_model(polygon_map(translate_by((1,0,0)), load_triangles()))
 # draw_model(polygon_map(rotate_x_by(pi/2), load_triangles()))
-draw_model(polygon_map(translate_by((0,0,-10)),load_triangles()))
+# draw_model(polygon_map(translate_by((0,0,-10)),load_triangles()))
+
+# Exercise 4.4
+#This is an example of sequential composition (manual chaining)
+triangles = load_triangles()
+step1 = polygon_map(tranlate_left,triangles)
+step2 = polygon_map(scale2,step1)
+
+# draw_model(step2)
+
+step3 = polygon_map(scale2,triangles)
+step4 = polygon_map(tranlate_left,step3)
+# draw_model(step4)
+
+# This is the answer the author came up with 
+# draw_model(polygon_map(compose(scale2,tranlate_left),load_triangles()))
+
+#Exercise 4.5
+draw_model(polygon_map(compose(scale_by(0.4),scale_by(1.5)),triangles))
+
