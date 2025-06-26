@@ -29,10 +29,10 @@ def scale_by(scalar):
         return scale(scalar,v)
     return new_function
 
-def translate_by(vector):
-    def new_function(v):
-        return add(vector,v)
-    return new_function
+# def translate_by(vector):
+#     def new_function(v):
+#         return add(vector,v)
+#     return new_function
 
 
 def rotate2d(angle,vector):
@@ -111,6 +111,24 @@ def slant_yz(vector):
     x,y,z = vector
     return (x,y+z,z)
 
+
+#Exercise 4.1 
+def translate_by_x(value):
+    def new_function(vector):
+        x,y,z = vector
+        return (x+value,y,z)
+    return new_function
+
+#The Code the book Gave
+def translate_by(translation):
+    def new_function(v):
+        return add(translation,v)
+    return new_function
+
+#my implementation is just for the x coord where the authors implementation is universal as you plug in the value that you want changed with a vector.
+
+
+
 scale2_then_translate_left = compose(tranlate_left,scale2)
 
 regular_triangles = load_triangles()
@@ -123,4 +141,4 @@ scaled_triangles = [
 
 # draw_model(polygon_map(translate_by((1,0,0)), load_triangles()))
 # draw_model(polygon_map(rotate_x_by(pi/2), load_triangles()))
-draw_model(polygon_map(slant_yz,load_triangles()))
+draw_model(polygon_map(translate_by((0,0,-10)),load_triangles()))

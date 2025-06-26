@@ -25,7 +25,6 @@ faces = [
     [(-1,0,0), (0,1,0), (0,0,-1)],
     [(-1,0,0), (0,-1,0), (0,0,1)],
     [(-1,0,0), (0,0,-1), (0,-1,0)]
-]
 
 
 
@@ -51,7 +50,7 @@ while True:
 
     clock.tick()
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-    glRotate(0.25,0,1,0)
+    glRotate(0.25,0,0,1)
     glBegin(GL_TRIANGLES)
     for face in faces:
         color = shade(face,blues,light)
